@@ -238,210 +238,197 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                                   )
                                 ],
                         ),
-                        child: BlurryContainer(
-                          blur: 7,
-                          // elevation: 2,
-                          color: Colors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10),
-                          padding: EdgeInsets.only(),
-                          child: Column(
-                            children: [
-                              !widget.searchable!
-                                  ? Container()
-                                  : Container(
-                                      margin: EdgeInsets.only(bottom: 5.0),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            widget.selectBoxStyle.searchColor,
-                                        border: widget.selectBoxStyle.border,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5.0)),
+                        child: Column(
+                          children: [
+                            !widget.searchable!
+                                ? Container()
+                                : Container(
+                                    margin: EdgeInsets.only(bottom: 5.0),
+                                    decoration: BoxDecoration(
+                                      color: widget.selectBoxStyle.searchColor,
+                                      border: widget.selectBoxStyle.border,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(5.0)),
+                                    ),
+                                    child: TextField(
+                                      focusNode: _focusNode,
+                                      controller: _controller,
+                                      decoration: InputDecoration(
+                                        hintText: widget.placeholderSearch,
+                                        hintStyle: TextStyle(
+                                            color: widget
+                                                .selectBoxStyle.searchTextColor,
+                                            fontSize: widget.selectBoxSize
+                                                .searchInputFontSize),
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.all(12.0),
+                                        isDense: true,
                                       ),
-                                      child: TextField(
-                                        focusNode: _focusNode,
-                                        controller: _controller,
-                                        decoration: InputDecoration(
-                                          hintText: widget.placeholderSearch,
-                                          hintStyle: TextStyle(
-                                              color: widget.selectBoxStyle
-                                                  .searchTextColor,
-                                              fontSize: widget.selectBoxSize
-                                                  .searchInputFontSize),
-                                          border: InputBorder.none,
-                                          contentPadding: EdgeInsets.all(12.0),
-                                          isDense: true,
-                                        ),
+                                      style: TextStyle(
+                                          color: widget
+                                              .selectBoxStyle.searchTextColor),
+                                      onChanged: (value) => doneTyping(
+                                        value,
+                                        (value) {
+                                          if (widget.onSearch != null)
+                                            widget.onSearch!(value);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                            !widget.controller.processing
+                                ? Container()
+                                : Center(
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(
+                                          12.0, 5.0, 12.0, 5.0),
+                                      margin: EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        "Memproses ...",
                                         style: TextStyle(
-                                            color: widget.selectBoxStyle
-                                                .searchTextColor),
-                                        onChanged: (value) => doneTyping(
-                                          value,
-                                          (value) {
-                                            if (widget.onSearch != null)
-                                              widget.onSearch!(value);
-                                          },
-                                        ),
+                                            color:
+                                                widget.selectBoxStyle.textColor,
+                                            fontSize: widget
+                                                .selectBoxSize.optionFontSize,
+                                            fontWeight: FontWeight.w100,
+                                            fontStyle: FontStyle.italic),
                                       ),
                                     ),
-                              !widget.controller.processing
-                                  ? Container()
-                                  : Center(
-                                      child: Container(
-                                        padding: EdgeInsets.fromLTRB(
-                                            12.0, 5.0, 12.0, 5.0),
-                                        margin: EdgeInsets.only(top: 8.0),
-                                        child: Text(
-                                          "Memproses ...",
-                                          style: TextStyle(
-                                              color: widget
-                                                  .selectBoxStyle.textColor,
-                                              fontSize: widget
-                                                  .selectBoxSize.optionFontSize,
-                                              fontWeight: FontWeight.w100,
-                                              fontStyle: FontStyle.italic),
-                                        ),
+                                  ),
+                            widget.controller.processing ||
+                                    widget.controller.options.length != 0
+                                ? Container()
+                                : Center(
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: 8.0),
+                                      padding: EdgeInsets.fromLTRB(
+                                          12.0, 5.0, 12.0, 5.0),
+                                      child: Text(
+                                        widget.noDataText,
+                                        style: TextStyle(
+                                            color:
+                                                widget.selectBoxStyle.textColor,
+                                            fontSize: widget
+                                                .selectBoxSize.optionFontSize,
+                                            fontWeight: FontWeight.w100,
+                                            fontStyle: FontStyle.italic),
                                       ),
                                     ),
-                              widget.controller.processing ||
-                                      widget.controller.options.length != 0
-                                  ? Container()
-                                  : Center(
-                                      child: Container(
-                                        margin: EdgeInsets.only(top: 8.0),
-                                        padding: EdgeInsets.fromLTRB(
-                                            12.0, 5.0, 12.0, 5.0),
-                                        child: Text(
-                                          widget.noDataText,
-                                          style: TextStyle(
-                                              color: widget
-                                                  .selectBoxStyle.textColor,
-                                              fontSize: widget
-                                                  .selectBoxSize.optionFontSize,
-                                              fontWeight: FontWeight.w100,
-                                              fontStyle: FontStyle.italic),
-                                        ),
-                                      ),
-                                    ),
-                              widget.controller.processing ||
-                                      widget.controller.options.length == 0
-                                  ? Container(key: _key)
-                                  : Container(
-                                      key: _key,
-                                      height: _overlayHeight == 0
-                                          ? null
-                                          : _overlayHeight,
-                                      child: ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                            maxHeight:
-                                                widget.selectBoxSize.maxHeight),
-                                        child: Scrollbar(
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: widget
-                                                  .controller.options
-                                                  .map((option) {
-                                                Color textColor = widget.style
-                                                            .itemTextColor !=
-                                                        null
-                                                    ? widget
-                                                        .style.itemTextColor!
-                                                    : widget.selectBoxStyle
-                                                        .textColor;
-                                                Color backgroundColor = widget
-                                                            .style.itemColor !=
-                                                        null
-                                                    ? widget.style.itemColor!
-                                                    : widget.selectBoxStyle
-                                                        .backgroundColor;
+                                  ),
+                            widget.controller.processing ||
+                                    widget.controller.options.length == 0
+                                ? Container(key: _key)
+                                : Container(
+                                    key: _key,
+                                    height: _overlayHeight == 0
+                                        ? null
+                                        : _overlayHeight,
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                          maxHeight:
+                                              widget.selectBoxSize.maxHeight),
+                                      child: Scrollbar(
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: widget.controller.options
+                                                .map((option) {
+                                              Color textColor = widget.style
+                                                          .itemTextColor !=
+                                                      null
+                                                  ? widget.style.itemTextColor!
+                                                  : widget
+                                                      .selectBoxStyle.textColor;
+                                              Color backgroundColor =
+                                                  widget.style.itemColor != null
+                                                      ? widget.style.itemColor!
+                                                      : widget.selectBoxStyle
+                                                          .backgroundColor;
 
-                                                if (widget.controller
-                                                        .getSelected() !=
-                                                    null) {
-                                                  int index = widget.controller
-                                                      .getSelectedAll()
-                                                      .indexWhere((element) =>
-                                                          element.getValue() ==
-                                                          option.getValue());
+                                              if (widget.controller
+                                                      .getSelected() !=
+                                                  null) {
+                                                int index = widget.controller
+                                                    .getSelectedAll()
+                                                    .indexWhere((element) =>
+                                                        element.getValue() ==
+                                                        option.getValue());
 
-                                                  if (index != -1) {
-                                                    backgroundColor = widget
-                                                        .selectBoxStyle
-                                                        .selectedColor;
-                                                    textColor = widget
-                                                        .selectBoxStyle
-                                                        .selectedTextColor;
-                                                  }
+                                                if (index != -1) {
+                                                  backgroundColor = widget
+                                                      .selectBoxStyle
+                                                      .selectedColor;
+                                                  textColor = widget
+                                                      .selectBoxStyle
+                                                      .selectedTextColor;
                                                 }
+                                              }
 
-                                                return Row(
-                                                  children: [
-                                                    Expanded(
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            bottom: 2.0),
-                                                        child: Material(
-                                                          color:
-                                                              backgroundColor,
+                                              return Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 2.0),
+                                                      child: Material(
+                                                        color: backgroundColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                        child: InkWell(
+                                                          onTap: () {
+                                                            widget.onChange(
+                                                                option);
+                                                            _focusNode
+                                                                .unfocus();
+                                                            updateState(() {});
+                                                          },
+                                                          child:
+                                                              DefaultTextStyle(
+                                                            style: TextStyle(
+                                                                color:
+                                                                    textColor,
+                                                                fontSize: widget
+                                                                    .selectBoxSize
+                                                                    .optionFontSize),
+                                                            child: Container(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .fromLTRB(
+                                                                          12.0,
+                                                                          10.0,
+                                                                          12.0,
+                                                                          10.0),
+                                                              child: option
+                                                                  .getText(),
+                                                            ),
+                                                          ),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
                                                                       5.0),
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              widget.onChange(
-                                                                  option);
-                                                              _focusNode
-                                                                  .unfocus();
-                                                              updateState(
-                                                                  () {});
-                                                            },
-                                                            child:
-                                                                DefaultTextStyle(
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      textColor,
-                                                                  fontSize: widget
-                                                                      .selectBoxSize
-                                                                      .optionFontSize),
-                                                              child: Container(
-                                                                alignment: Alignment
-                                                                    .centerLeft,
-                                                                padding: EdgeInsets
-                                                                    .fromLTRB(
-                                                                        12.0,
-                                                                        10.0,
-                                                                        12.0,
-                                                                        10.0),
-                                                                child: option
-                                                                    .getText(),
-                                                              ),
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                            splashColor: widget
-                                                                .selectBoxStyle
-                                                                .selectedColor,
-                                                            highlightColor: widget
-                                                                .selectBoxStyle
-                                                                .selectedColor,
-                                                          ),
+                                                          splashColor: widget
+                                                              .selectBoxStyle
+                                                              .selectedColor,
+                                                          highlightColor: widget
+                                                              .selectBoxStyle
+                                                              .selectedColor,
                                                         ),
                                                       ),
-                                                    )
-                                                  ],
-                                                );
-                                              }).toList(),
-                                            ),
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                            }).toList(),
                                           ),
                                         ),
                                       ),
-                                    )
-                            ],
-                          ),
+                                    ),
+                                  )
+                          ],
                         ),
                       ),
                     )
