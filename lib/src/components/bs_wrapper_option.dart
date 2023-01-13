@@ -224,6 +224,9 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                           width: _overlayWidth,
                           padding: widget.padding,
                           decoration: BoxDecoration(
+                            color: widget.style.backgroundColor != null
+                                ? widget.style.backgroundColor
+                                : Colors.transparent,
                             border: widget.style.border != null
                                 ? widget.style.border
                                 : widget.selectBoxStyle.border,
@@ -233,12 +236,12 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                             boxShadow: widget.style.boxShadow != null
                                 ? widget.style.boxShadow
                                 : [
-                                    // BoxShadow(
-                                    //   color: Colors.black.withOpacity(0.2),
-                                    //   blurRadius: 8.0,
-                                    //   spreadRadius: 0.0,
-                                    //   offset: Offset(2.0, 2.0),
-                                    // )
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 8.0,
+                                      spreadRadius: 0.0,
+                                      offset: Offset(2.0, 2.0),
+                                    )
                                   ],
                           ),
                           child: Column(
