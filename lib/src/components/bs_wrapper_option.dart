@@ -212,38 +212,38 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                   children: [
                     Material(
                       color: Colors.transparent,
-                      child: BlurryContainer(
-                        blur: widget.style.glasBlur != null
-                            ? widget.style.glasBlur!
-                            : 5,
-                        color: widget.style.glasColor != null
-                            ? widget.style.glasColor!
-                            : Colors.white.withOpacity(0.3),
-                        child: Container(
-                          key: _keyAll,
-                          width: _overlayWidth,
-                          padding: widget.padding,
-                          decoration: BoxDecoration(
-                            color: widget.style.backgroundColor != null
-                                ? widget.style.backgroundColor
-                                : Colors.transparent,
-                            border: widget.style.border != null
-                                ? widget.style.border
-                                : widget.selectBoxStyle.border,
-                            borderRadius: widget.style.borderRadius != null
-                                ? widget.style.borderRadius
-                                : widget.selectBoxStyle.borderRadius,
-                            boxShadow: widget.style.boxShadow != null
-                                ? widget.style.boxShadow
-                                : [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      blurRadius: 8.0,
-                                      spreadRadius: 0.0,
-                                      offset: Offset(2.0, 2.0),
-                                    )
-                                  ],
-                          ),
+                      child: Container(
+                        key: _keyAll,
+                        width: _overlayWidth,
+                        padding: widget.padding,
+                        decoration: BoxDecoration(
+                          color: widget.style.backgroundColor != null
+                              ? widget.style.backgroundColor
+                              : Colors.transparent,
+                          border: widget.style.border != null
+                              ? widget.style.border
+                              : widget.selectBoxStyle.border,
+                          borderRadius: widget.style.borderRadius != null
+                              ? widget.style.borderRadius
+                              : widget.selectBoxStyle.borderRadius,
+                          boxShadow: widget.style.boxShadow != null
+                              ? widget.style.boxShadow
+                              : [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 8.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                        ),
+                        child: BlurryContainer(
+                          blur: widget.style.glasBlur != null
+                              ? widget.style.glasBlur!
+                              : 5,
+                          color: widget.style.glasColor != null
+                              ? widget.style.glasColor!
+                              : Colors.white.withOpacity(0.3),
                           child: Column(
                             children: [
                               !widget.searchable!
@@ -444,7 +444,7 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
