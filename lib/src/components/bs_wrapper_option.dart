@@ -200,6 +200,7 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
     return Opacity(
       opacity: _done ? 1 : 0,
       child: Container(
+        color: Colors.transparent,
         child: Stack(
           children: [
             Positioned(
