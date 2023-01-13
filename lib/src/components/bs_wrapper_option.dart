@@ -202,48 +202,48 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
       opacity: _done ? 1 : 0,
       child: Container(
         color: Colors.transparent,
-        child: BlurryContainer(
-          blur: 7,
-          // elevation: 2,
-          color: Colors.white.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(10),
-          padding: EdgeInsets.only(),
-          child: Stack(
-            children: [
-              Positioned(
-                child: CompositedTransformFollower(
-                  link: widget.link,
-                  showWhenUnlinked: false,
-                  offset: Offset(_overlayLeft, _overlayTop + 2),
-                  child: Column(
-                    children: [
-                      Material(
-                        color: Colors.transparent,
-                        child: Container(
-                          key: _keyAll,
-                          width: _overlayWidth,
-                          padding: widget.padding,
-                          decoration: BoxDecoration(
-                            color: widget.style.backgroundColor != null
-                                ? widget.style.backgroundColor
-                                : widget.selectBoxStyle.backgroundColor,
-                            border: widget.style.border != null
-                                ? widget.style.border
-                                : widget.selectBoxStyle.border,
-                            borderRadius: widget.style.borderRadius != null
-                                ? widget.style.borderRadius
-                                : widget.selectBoxStyle.borderRadius,
-                            boxShadow: widget.style.boxShadow != null
-                                ? widget.style.boxShadow
-                                : [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      blurRadius: 8.0,
-                                      spreadRadius: 0.0,
-                                      offset: Offset(2.0, 2.0),
-                                    )
-                                  ],
-                          ),
+        child: Stack(
+          children: [
+            Positioned(
+              child: CompositedTransformFollower(
+                link: widget.link,
+                showWhenUnlinked: false,
+                offset: Offset(_overlayLeft, _overlayTop + 2),
+                child: Column(
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        key: _keyAll,
+                        width: _overlayWidth,
+                        padding: widget.padding,
+                        decoration: BoxDecoration(
+                          color: widget.style.backgroundColor != null
+                              ? widget.style.backgroundColor
+                              : widget.selectBoxStyle.backgroundColor,
+                          border: widget.style.border != null
+                              ? widget.style.border
+                              : widget.selectBoxStyle.border,
+                          borderRadius: widget.style.borderRadius != null
+                              ? widget.style.borderRadius
+                              : widget.selectBoxStyle.borderRadius,
+                          boxShadow: widget.style.boxShadow != null
+                              ? widget.style.boxShadow
+                              : [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 8.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                        ),
+                        child: BlurryContainer(
+                          blur: 7,
+                          // elevation: 2,
+                          color: Colors.white.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(10),
+                          padding: EdgeInsets.only(),
                           child: Column(
                             children: [
                               !widget.searchable!
@@ -443,13 +443,13 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                             ],
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
