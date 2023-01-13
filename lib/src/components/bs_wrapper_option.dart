@@ -215,6 +215,7 @@ class _BsWrapperOptionsState extends State<BsWrapperOptions> {
                       child: Container(
                         key: _keyAll,
                         width: _overlayWidth,
+                        padding: widget.padding,
                         decoration: BoxDecoration(
                           color: widget.style.backgroundColor != null
                               ? widget.style.backgroundColor
