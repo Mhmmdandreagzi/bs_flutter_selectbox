@@ -222,7 +222,10 @@ class _BsSelectBoxState extends State<BsSelectBox>
           updateState(
             () {
               widget.controller.options = _options.where((element) {
-                return value == '' || element.searchable.contains(value);
+                return value == '' ||
+                    element.searchable
+                        .toLowerCase()
+                        .contains(value.toLowerCase());
               }).toList();
               if (_keyOverlay.currentState != null &&
                   _keyOverlay.currentState!.mounted)
